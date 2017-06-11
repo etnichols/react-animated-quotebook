@@ -4,8 +4,15 @@ import QuoteModal from './components/QuoteModal'
 import logo from './logo.svg';
 import './App.css';
 
+import quotes from './quotes'
+
 
 class App extends Component {
+
+  fetchRandomQuote(){
+
+  }
+
   render() {
     return (
       <div className="App">
@@ -14,6 +21,7 @@ class App extends Component {
         </div>
         <QuoteModal />
       </div>
+
     );
   }
 }

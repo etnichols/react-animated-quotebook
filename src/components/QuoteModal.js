@@ -5,9 +5,9 @@ class QuoteModal extends Component {
   render(){
     return(
       <div className="text-center quote-modal">
-        <p>This will be a quote.</p>
+        <p>{this.props.quote}</p>
           <hr/>
-        <p>-Author</p>
+        <p>- {this.props.author}</p>
       </div>
     )
   }
