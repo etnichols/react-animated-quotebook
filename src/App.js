@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
+import ReactCSSTransitionReplace from 'react-css-transition-replace';
 
-import QuoteModal from './components/QuoteModal'
-import logo from './logo.svg';
 import './App.css';
 
+import QuoteModal from './components/QuoteModal'
 import quotes from './quotes'
 
 class App extends Component {
@@ -27,8 +27,12 @@ class App extends Component {
     })
   }
 
+  componentWillMount(){
+    this.getRandomQuote()
+  }
+
   componentDidMount(){
-    let interval_id = setInterval(this.getRandomQuote.bind(this), 10000)
+    let interval_id = setInterval(this.getRandomQuote.bind(this), 5000)
     this.setState({
       interval_id: interval_id
     })
@@ -42,11 +46,15 @@ class App extends Component {
     return (
       <div className="App">
         <div className="App-header">
-          <h2>Quotebook</h2>
+          <h2 className="animated fadeIn">Quotebook</h2>
         </div>
-        <QuoteModal quote={this.state.quote} author={this.state.author} />
+            <ReactCSSTransitionReplace
+              transitionName="cross-fade"
+              transitionEnterTimeout={1500}
+              transitionLeaveTimeout={1500}>
+                <QuoteModal key={this.state.quote} quote={this.state.quote} author={this.state.author} />
+            </ReactCSSTransitionReplace>
       </div>
-
     );
   }
 }

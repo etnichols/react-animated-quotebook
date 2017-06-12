@@ -122,7 +122,7 @@ module.exports = [
     author: "Confucius"
   },
   {
-    quote: "one of life's best coping mechanisms is knowing the difference between an inconvenience and a problem. If you break your neck, if you have nothing to eat, if your house is on fire, then you've got a problem. Everything else is an inconvenience. Life is inconvenient. Life is lumpy. A lump in the oatmeal, a lump in the throat and a lump in the breast are not the same kind of lump. One needs to learn the difference.",
+    quote: "One of life's best coping mechanisms is knowing the difference between an inconvenience and a problem. If you break your neck, if you have nothing to eat, if your house is on fire, then you've got a problem. Everything else is an inconvenience. Life is inconvenient. Life is lumpy. A lump in the oatmeal, a lump in the throat and a lump in the breast are not the same kind of lump. One needs to learn the difference.",
     author: "Fulghum"
   },
   {
@@ -436,53 +436,5 @@ module.exports = [
   {
     quote: "I've always had more in common with writing prose than math. It feels like you're writing a story and you're trying to express a concept to a very dumb person - the computer - who has a limited vocabulary. You've got this concept you want to express and limited tools to express it with.",
     author: "Jamie Zawinski"
-  },
-  {
-    quote: "",
-    author: ""
-  },
-  {
-    quote: "",
-    author: ""
-  },
-  {
-    quote: "",
-    author: ""
-  },
-  {
-    quote: "",
-    author: ""
-  },
-  {
-    quote: "",
-    author: ""
-  },
-  {
-    quote: "",
-    author: ""
-  },
-  {
-    quote: "",
-    author: ""
-  },
-  {
-    quote: "",
-    author: ""
-  },
-  {
-    quote: "",
-    author: ""
-  },
-  {
-    quote: "",
-    author: ""
-  },
-  {
-    quote: "",
-    author: ""
-  },
-  {
-    quote: "",
-    author: ""
-  },
+  }
 ]

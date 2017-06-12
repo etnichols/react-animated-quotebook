@@ -5,9 +5,13 @@
   border-radius: 3px;
   margin: auto;
   width: 95%;
-  height: 100%;
+  height: auto;
   background-color: #fff;
   box-shadow:2px 2px 5px #9E9E9E;
+}
+
+.quote-text {
+  line-height: 1.5;
 }
 
 @media only screen and (min-width: 768px){
