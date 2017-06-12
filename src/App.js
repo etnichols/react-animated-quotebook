@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import ReactCSSTransitionReplace from 'react-css-transition-replace';
 
-import './App.css';
+import './App.css'
+
+import PlusIcon from './components/PlusIcon'
+import MinusIcon from './components/MinusIcon'
 
 import QuoteModal from './components/QuoteModal'
 import quotes from './quotes'
@@ -12,12 +15,32 @@ class App extends Component {
     super(props)
     this.state = {
       quote: '',
-      author: ''
+      author: '',
+      background_color: '#668cc9',
+      color_interval: null,
+      quote_interval: null,
+      quote_duration: 15
     }
   }
 
+  //https://stackoverflow.com/questions/1349404/generate-random-string-characters-in-javascript
+  generateRandomHexColor(){
+    let text = []
+    let possible = "0123456789ABCDEFG"
+
+    for(let i = 0; i < 6; i++){
+      text.push(possible.charAt(Math.floor(Math.random() * possible.length)))
+    }
+
+    text.unshift('#')
+    let color = text.join('')
+
+    this.setState({
+      background_color: color
+    })
+  }
+
   getRandomQuote(){
-    console.log("getting new quote")
     let min = Math.ceil(0)
     let max = Math.floor(quotes.length)
     let random_index = Math.floor(Math.random() * (max - min)) + min
@@ -27,33 +50,77 @@ class App extends Component {
     })
   }
 
+  randomnessDriver(){
+    this.getRandomQuote()
+    this.generateRandomHexColor()
+  }
+
   componentWillMount(){
     this.getRandomQuote()
   }
 
   componentDidMount(){
-    let interval_id = setInterval(this.getRandomQuote.bind(this), 5000)
+    let driver_interval = setInterval(this.randomnessDriver.bind(this), this.state.quote_duration * 1000)
     this.setState({
-      interval_id: interval_id
+      driver_interval: driver_interval,
     })
   }
 
+  handleDecrementDuration(){
+    clearInterval(this.state.driver_interval)
+    if(this.state.quote_duration !== 10){
+      let new_duration = this.state.quote_duration - 5
+      let driver_interval = setInterval(this.randomnessDriver.bind(this), new_duration * 1000)
+      this.setState({
+        driver_interval: driver_interval,
+        quote_duration: new_duration
+      }, () => {
+        console.log("Duration decremented to : " + this.state.quote_duration)
+      })
+    }
+  }
+
+  handleIncrementDuration(){
+    clearInterval(this.state.driver_interval)
+    if(this.state.quote_duration !== 60){
+      let new_duration = this.state.quote_duration + 5
+      let driver_interval = setInterval(this.randomnessDriver.bind(this), new_duration * 1000)
+      this.setState({
+        driver_interval: driver_interval,
+        quote_duration: new_duration
+      }, () => {
+        console.log("Duration incremented to : " + this.state.quote_duration)
+      })
+    }
+  }
+
   componentWillUnmount(){
-    clearInterval(this.state.interval_id)
+    clearInterval(this.state.driver_interval)
   }
 
   render() {
+    const container_style  = {
+      backgroundColor: this.state.background_color,
+      transition: 'background-color 1s ease'
+    }
+
     return (
-      <div className="App">
+      <div className="App" style={container_style}>
         <div className="App-header">
           <h2 className="animated fadeIn">Quotebook</h2>
+          </div>
+          <ReactCSSTransitionReplace
+            transitionName="cross-fade"
+            transitionEnterTimeout={1500}
+            transitionLeaveTimeout={1500}
+          >
+              <QuoteModal key={this.state.quote} quote={this.state.quote} author={this.state.author} />
+          </ReactCSSTransitionReplace>
+        <div className="controls-section">
+          <MinusIcon onClickFunction={this.handleDecrementDuration.bind(this)} className="icon inline-control" />
+          <p className="duration-text inline-control">{this.state.quote_duration} sec</p>
+          <PlusIcon onClickFunction={this.handleIncrementDuration.bind(this)} className="icon inline-control" />
         </div>
-            <ReactCSSTransitionReplace
-              transitionName="cross-fade"
-              transitionEnterTimeout={1500}
-              transitionLeaveTimeout={1500}>
-                <QuoteModal key={this.state.quote} quote={this.state.quote} author={this.state.author} />
-            </ReactCSSTransitionReplace>
       </div>
     );
   }

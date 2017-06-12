@@ -18,7 +18,7 @@ module.exports = [
     author: UNKNOWN
   },
   {
-    quote: "Do you know why the indian rain dances always worked? Because the indians would keep dancing until it rained.",
+    quote: "Do you know why the Indian rain dances always worked? Because the Indians would keep dancing until it rained.",
     author: "Sherman Alexie"
   },
   {
@@ -59,7 +59,7 @@ module.exports = [
   },
   {
     quote: "Smile, because it is a beautiful fucking day and there is a lot to be happy about. So smile.",
-    author: "E. H."
+    author: "E.H."
   },
   {
     quote: "If you make even the most modest (to your mind) mistake, be it in social interaction or technical detail, be quick to apologize and retract, and do so freely. What is there to lose? Only your pride. Who keeps track? Only you. What is there to gain? Integrity, and ultimately that integrity will feel far more fulfilling than the cheap passing thrills of cutting somebody else down or deflecting their concerns.",

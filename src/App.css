@@ -1,9 +1,10 @@
 body {
-    background-color: #668cc9;
+  height: 100%;
 }
 
 .App {
   text-align: center;
+  height: 100vh;
 }
 
 .App-header {
@@ -11,6 +12,27 @@ body {
   height: 100px;
   padding: 20px;
   color: white;
+}
+
+.controls-section {
+  text-align: center;
+  padding: 20px;
+}
+
+.icon-control {
+  padding: 0px 10px 0px 10px;
+}
+
+.duration-text {
+  font-family: 'Open Sans', sans-serif;
+  color: white;
+  padding: 0px 20px 0px 20px;
+  margin: -10px 0px 0px 0px;
+  vertical-align: text-top;
+}
+
+.inline-control {
+  display: inline-block;
 }
 
 .cross-fade-leave {
