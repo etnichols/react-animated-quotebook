@@ -23,6 +23,10 @@ body {
   padding: 0px 10px 0px 10px;
 }
 
+.next-icon-container {
+  padding: 10px;
+}
+
 .duration-text {
   font-family: 'Open Sans', sans-serif;
   color: white;

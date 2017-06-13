@@ -5,6 +5,7 @@ import './App.css'
 
 import PlusIcon from './components/PlusIcon'
 import MinusIcon from './components/MinusIcon'
+import NextIcon from './components/NextIcon'
 
 import QuoteModal from './components/QuoteModal'
 import quotes from './quotes'
@@ -57,6 +58,16 @@ class App extends Component {
 
   componentWillMount(){
     this.getRandomQuote()
+  }
+
+  handleNextButton(){
+    clearInterval(this.state.driver_interval)
+    this.getRandomQuote();
+    this.generateRandomHexColor()
+    let driver_interval = setInterval(this.randomnessDriver.bind(this), this.state.quote_duration * 1000)
+    this.setState({
+      driver_interval: driver_interval,
+    })
   }
 
   componentDidMount(){
@@ -117,9 +128,12 @@ class App extends Component {
               <QuoteModal key={this.state.quote} quote={this.state.quote} author={this.state.author} />
           </ReactCSSTransitionReplace>
         <div className="controls-section">
-          <MinusIcon onClickFunction={this.handleDecrementDuration.bind(this)} className="icon inline-control" />
+          <MinusIcon onClickFunction={this.handleDecrementDuration.bind(this)} className="inline-control" />
           <p className="duration-text inline-control">{this.state.quote_duration} sec</p>
-          <PlusIcon onClickFunction={this.handleIncrementDuration.bind(this)} className="icon inline-control" />
+          <PlusIcon onClickFunction={this.handleIncrementDuration.bind(this)} className="inline-control" />
+          <div className="next-icon-container">
+            <NextIcon onClickFunction={this.handleNextButton.bind(this)} className="inline-control" />
+          </div>
         </div>
       </div>
     );
