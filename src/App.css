@@ -1,0 +1,62 @@
+body {
+  height: 100%;
+}
+
+.App {
+  text-align: center;
+  height: 100vh;
+}
+
+.App-header {
+  font-family: 'Arvo', serif;
+  height: 100px;
+  padding: 20px;
+  color: white;
+}
+
+.controls-section {
+  text-align: center;
+  padding: 20px;
+}
+
+.icon-control {
+  padding: 0px 10px 0px 10px;
+}
+
+.next-icon-container {
+  padding: 10px;
+}
+
+.duration-text {
+  font-family: 'Open Sans', sans-serif;
+  color: white;
+  padding: 0px 20px 0px 20px;
+  margin: -10px 0px 0px 0px;
+  vertical-align: text-top;
+}
+
+.inline-control {
+  display: inline-block;
+}
+
+.cross-fade-leave {
+  opacity: 1;
+}
+
+.cross-fade-leave.cross-fade-leave-active {
+  opacity: 0;
+  transition: opacity 1s ease-in;
+}
+
+.cross-fade-enter {
+  opacity: 0;
+}
+
+.cross-fade-enter.cross-fade-enter-active {
+  opacity: 1;
+  transition: opacity 1s ease-in;
+}
+
+.cross-fade-height {
+  transition: height 1s ease-in-out;
+}
