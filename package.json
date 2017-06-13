@@ -19,5 +19,5 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
-  "homepage": "https://e-nichols.github.io/quotebook"
+  "homepage": "."
 }
