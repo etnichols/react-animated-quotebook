@@ -39,7 +39,7 @@ module.exports = [
   },
   {
     quote: "Project managers think you can create a baby in 1 month with 9 women. Don't take it personally.",
-    author: "A lady I worked with at my first internship"
+    author: "Lady from my first internship"
   },
   {
     quote: "You can discover more about a person in an hour of play than a year of conversation.",
