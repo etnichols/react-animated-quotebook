@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import ReactCSSTransitionReplace from 'react-css-transition-replace';
 
-import './App.css'
-
 import PlusIcon from './components/PlusIcon'
 import MinusIcon from './components/MinusIcon'
 import NextIcon from './components/NextIcon'
 import BackIcon from './components/BackIcon'
-
 import QuoteModal from './components/QuoteModal'
+
+import './App.css'
 import quotes from './quotes'
 
 class App extends Component {
@@ -26,7 +25,7 @@ class App extends Component {
     }
   }
 
-  //https://stackoverflow.com/questions/1349404/generate-random-string-characters-in-javascript
+  // https://stackoverflow.com/questions/1349404/generate-random-string-characters-in-javascript
   generateRandomHexColor(){
     let text = []
     let possible = "0123456789ABCDEFG"
@@ -54,22 +53,18 @@ class App extends Component {
 
   popSessionHistory(){
     let curHistory = this.state.session_history
-
-    //shift alters the original array it is called on, so use it to set the new state
+    // shift alters the original array it is called on, so use it to set the new state
     let popped = curHistory.shift()
     this.setState({
       session_history: curHistory
     })
-
-    //note: you can shift on an empty array. it returns undefined.
+    // note: you can shift on an empty array. it returns undefined, so we'll have to check
+    // for that when using this function.
     return popped
-
   }
 
-  //GetRandomQuote... And handle preserving session history.
   getRandomQuote(){
-
-    //grab the quote that's about to be replaced
+    // ... but first handle preserving session history.
     this.pushSessionHistory({
       quote: this.state.quote,
       author: this.state.author
@@ -85,15 +80,6 @@ class App extends Component {
     })
   }
 
-  randomnessDriver(){
-    this.getRandomQuote()
-    this.generateRandomHexColor()
-  }
-
-  componentWillMount(){
-    this.getRandomQuote()
-  }
-
   handleBackButton(){
     //if history actually exists...
     if(this.state.session_history !== []){
@@ -106,6 +92,16 @@ class App extends Component {
         })
       }
     }
+  }
+
+  handleNextButton(){
+    clearInterval(this.state.driver_interval)
+    this.getRandomQuote();
+    this.generateRandomHexColor()
+    let driver_interval = setInterval(this.randomnessDriver.bind(this), this.state.quote_duration * 1000)
+    this.setState({
+      driver_interval: driver_interval,
+    })
   }
 
   handleIncrementDuration(){
@@ -136,14 +132,9 @@ class App extends Component {
     }
   }
 
-  handleNextButton(){
-    clearInterval(this.state.driver_interval)
-    this.getRandomQuote();
+  randomnessDriver(){
+    this.getRandomQuote()
     this.generateRandomHexColor()
-    let driver_interval = setInterval(this.randomnessDriver.bind(this), this.state.quote_duration * 1000)
-    this.setState({
-      driver_interval: driver_interval,
-    })
   }
 
   componentDidMount(){
@@ -157,6 +148,10 @@ class App extends Component {
     clearInterval(this.state.driver_interval)
   }
 
+  componentWillMount(){
+    this.getRandomQuote()
+  }
+
   render() {
 
     const container_style  = {
@@ -166,29 +161,28 @@ class App extends Component {
 
     return (
       <div className="App" style={container_style}>
+
         <div className="App-header">
           <h2 className="animated fadeIn">Quotebook</h2>
+        </div>
+
+        <ReactCSSTransitionReplace transitionName="cross-fade" transitionEnterTimeout={1500} transitionLeaveTimeout={1500} >
+          <QuoteModal key={this.state.quote} quote={this.state.quote} author={this.state.author} />
+        </ReactCSSTransitionReplace>
+
+        <div className="controls-section">
+          <div className="history-control-container">
+            <BackIcon onClickFunction={this.handleBackButton.bind(this)} className="inline-control history-control" />
+            <NextIcon onClickFunction={this.handleNextButton.bind(this)} className="inline-control history-control" />
           </div>
-          <ReactCSSTransitionReplace
-            transitionName="cross-fade"
-            transitionEnterTimeout={1500}
-            transitionLeaveTimeout={1500} >
-            <QuoteModal key={this.state.quote} quote={this.state.quote} author={this.state.author} />
-          </ReactCSSTransitionReplace>
-          <div className="controls-section">
-            <div className="text-center">
-              <div className="history-control-container">
-              <BackIcon onClickFunction={this.handleBackButton.bind(this)} className="inline-control history-control" />
-              <NextIcon onClickFunction={this.handleNextButton.bind(this)} className="inline-control history-control" />
-            </div>
-            <div className="duration-control-container">
-              <MinusIcon onClickFunction={this.handleDecrementDuration.bind(this)} className="inline-control" />
-                <p className="duration-text inline-control">{this.state.quote_duration} sec</p>
-              <PlusIcon onClickFunction={this.handleIncrementDuration.bind(this)} className="inline-control" />
-            </div>
+          <div className="duration-control-container">
+            <MinusIcon onClickFunction={this.handleDecrementDuration.bind(this)} className="inline-control" />
+            <p className="duration-text inline-control">{this.state.quote_duration} sec</p>
+            <PlusIcon onClickFunction={this.handleIncrementDuration.bind(this)} className="inline-control" />
           </div>
         </div>
-      </div>
+
+    </div>
     );
   }
 }
