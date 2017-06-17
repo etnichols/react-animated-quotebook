@@ -4,6 +4,8 @@ body {
 
 .App {
   text-align: center;
+  display: block;
+  overflow: auto;
   height: 100vh;
 }
 

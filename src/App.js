@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import ReactCSSTransitionReplace from 'react-css-transition-replace'
-import { Stack } from 'immutable'
+import { List } from 'immutable'
 
 import NextIcon from './components/NextIcon'
 import BackIcon from './components/BackIcon'
@@ -14,17 +14,13 @@ class App extends Component {
   constructor(props){
     super(props)
 
-    //init immutable.js list with quotes object
-
-    //init session_history to empty list
-
     this.state = {
       quote: '',
       author: '',
       background_color: '#668cc9',
-      quote_duration: 15,
-      session_history: [],
-      available_quotes: quotes
+      session_history: List(),
+      available_quotes: List(quotes),
+      history_index: 0
     }
   }
 
@@ -45,52 +41,81 @@ class App extends Component {
     })
   }
 
-  pushSessionHistory(prevQuote){
-    let new_session_history = this.state.session_history
-    new_session_history.unshift(prevQuote)
-
+  unshiftSessionHistory(prevQuote){
+    const new_session_history = this.state.session_history.unshift(prevQuote)
     this.setState({
       session_history: new_session_history
     })
   }
 
   getRandomQuote(){
-    // ... but first handle preserving session history.
-    this.pushSessionHistory({
-      quote: this.state.quote,
-      author: this.state.author
-    })
 
-    let min = Math.ceil(0)
-    let max = Math.floor(quotes.length)
-    let random_index = Math.floor(Math.random() * (max - min)) + min
+    const available_quotes = this.state.available_quotes
+
+    // update the session history with about-to-be-replaced quote
+    if(this.state.quote !== ''){
+        this.unshiftSessionHistory({
+          quote: this.state.quote,
+          author: this.state.author
+        })
+    }
+
+    let max = Math.floor(available_quotes.size)
+    let random_index = Math.floor(Math.random() * max)
+
+    //fetch and remove random quotes from available ones
+    let new_quote = available_quotes.get(random_index)
+    const new_available_quotes = available_quotes.delete(random_index)
 
     this.setState({
-      quote: quotes[random_index]['quote'],
-      author: quotes[random_index]['author']
+      quote: new_quote['quote'],
+      author: new_quote['author'],
+      available_quotes: new_available_quotes
     })
   }
 
+  /*
+    handleBackButton: fetch a past quote from the history, if it exists, using
+    the history_index state variable. Set the quote and author, and increase
+    the history_index by one.
+  */
   handleBackButton(){
-    //if history actually exists...
-    if(this.state.session_history !== []){
-      clearInterval(this.state.driver_interval)
-      let prevQuote = this.popSessionHistory()
-      if(prevQuote !== undefined){
-        this.setState({
-          quote: prevQuote['quote'],
-          author: prevQuote['author']
-        })
-      }
+    const cur_history = this.state.session_history
+    const cur_index = this.state.history_index
+    //two conditions we're guarding against here:
+      // 1. user tries to hit back button upon initial app load (i.e. no history no scroll through yet)
+      // 2. user has been scrolling back in history and we've hit the end.
+    if( !(cur_history.isEmpty()) && cur_index !== cur_history.size ){
+      let prev = cur_history.get(cur_index)
+      this.setState({
+        quote: prev['quote'],
+        author: prev['author'],
+        history_index: cur_index + 1
+      })
     }
   }
 
   handleNextButton(){
-    this.getRandomQuote();
-    this.refreshBackgroundColor()
-  }
 
-  componentWillUnmount(){
+    //we'll need to check and see if history index is 0 before fetching a new.
+    const cur_history = this.state.session_history
+    const cur_index = this.state.history_index
+
+    if( cur_index === 0 ){
+      //then we'll fetch a new quote
+      this.getRandomQuote()
+      this.refreshBackgroundColor()
+
+    }
+    else{
+      //means user is making its way back through the history. So let's refresh using the next quote
+      let more_recent_quote = cur_history.get(cur_index - 1)
+      this.setState({
+        quote: more_recent_quote['quote'],
+        author: more_recent_quote['author'],
+        history_index: cur_index - 1
+      })
+    }
   }
 
   componentWillMount(){
