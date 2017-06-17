@@ -20,7 +20,7 @@ class App extends Component {
       background_color: '#668cc9',
       session_history: List(),
       available_quotes: List(quotes),
-      history_index: 0
+      history_index: -1
     }
   }
 
@@ -80,12 +80,25 @@ class App extends Component {
     the history_index by one.
   */
   handleBackButton(){
+
     const cur_history = this.state.session_history
     const cur_index = this.state.history_index
+
+    console.log("handleBackButton(): curhistory: " + cur_history + " and cur_index: " + cur_index)
+
     //two conditions we're guarding against here:
       // 1. user tries to hit back button upon initial app load (i.e. no history no scroll through yet)
       // 2. user has been scrolling back in history and we've hit the end.
-    if( !(cur_history.isEmpty()) && cur_index !== cur_history.size ){
+    if( !(cur_history.isEmpty()) && cur_index !== -1 ){
+
+      //preserve whatever quote we were on
+      if(this.state.quote !== ''){
+          this.unshiftSessionHistory({
+            quote: this.state.quote,
+            author: this.state.author
+          })
+      }
+
       let prev = cur_history.get(cur_index)
       this.setState({
         quote: prev['quote'],
@@ -101,7 +114,10 @@ class App extends Component {
     const cur_history = this.state.session_history
     const cur_index = this.state.history_index
 
-    if( cur_index === 0 ){
+    console.log("handleNextButton(): curhistory: " + cur_history + " and cur_index: " + cur_index)
+
+
+    if( cur_index === -1 ){
       //then we'll fetch a new quote
       this.getRandomQuote()
       this.refreshBackgroundColor()
@@ -109,7 +125,7 @@ class App extends Component {
     }
     else{
       //means user is making its way back through the history. So let's refresh using the next quote
-      let more_recent_quote = cur_history.get(cur_index - 1)
+      let more_recent_quote = cur_history.get(cur_index)
       this.setState({
         quote: more_recent_quote['quote'],
         author: more_recent_quote['author'],
