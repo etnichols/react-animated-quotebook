@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
-import ReactCSSTransitionReplace from 'react-css-transition-replace';
+import React, { Component } from 'react'
+import ReactCSSTransitionReplace from 'react-css-transition-replace'
+import { Stack } from 'immutable'
 
-import PlusIcon from './components/PlusIcon'
-import MinusIcon from './components/MinusIcon'
 import NextIcon from './components/NextIcon'
 import BackIcon from './components/BackIcon'
 import QuoteModal from './components/QuoteModal'
@@ -14,28 +13,32 @@ class App extends Component {
 
   constructor(props){
     super(props)
+
+    //init immutable.js list with quotes object
+
+    //init session_history to empty list
+
     this.state = {
       quote: '',
       author: '',
       background_color: '#668cc9',
-      color_interval: null,
-      quote_interval: null,
       quote_duration: 15,
-      session_history: []
+      session_history: [],
+      available_quotes: quotes
     }
   }
 
   // https://stackoverflow.com/questions/1349404/generate-random-string-characters-in-javascript
-  generateRandomHexColor(){
-    let text = []
+  refreshBackgroundColor(){
+    let hex_val = []
     let possible = "0123456789ABCDEFG"
 
     for(let i = 0; i < 6; i++){
-      text.push(possible.charAt(Math.floor(Math.random() * possible.length)))
+      hex_val.push(possible.charAt(Math.floor(Math.random() * possible.length)))
     }
 
-    text.unshift('#')
-    let color = text.join('')
+    hex_val.unshift('#')
+    let color = hex_val.join('')
 
     this.setState({
       background_color: color
@@ -49,18 +52,6 @@ class App extends Component {
     this.setState({
       session_history: new_session_history
     })
-  }
-
-  popSessionHistory(){
-    let curHistory = this.state.session_history
-    // shift alters the original array it is called on, so use it to set the new state
-    let popped = curHistory.shift()
-    this.setState({
-      session_history: curHistory
-    })
-    // note: you can shift on an empty array. it returns undefined, so we'll have to check
-    // for that when using this function.
-    return popped
   }
 
   getRandomQuote(){
@@ -95,57 +86,11 @@ class App extends Component {
   }
 
   handleNextButton(){
-    clearInterval(this.state.driver_interval)
     this.getRandomQuote();
-    this.generateRandomHexColor()
-    let driver_interval = setInterval(this.randomnessDriver.bind(this), this.state.quote_duration * 1000)
-    this.setState({
-      driver_interval: driver_interval,
-    })
-  }
-
-  handleIncrementDuration(){
-    clearInterval(this.state.driver_interval)
-    if(this.state.quote_duration !== 60){
-      let new_duration = this.state.quote_duration + 5
-      let driver_interval = setInterval(this.randomnessDriver.bind(this), new_duration * 1000)
-      this.setState({
-        driver_interval: driver_interval,
-        quote_duration: new_duration
-      }, () => {
-        console.log("Duration incremented to : " + this.state.quote_duration)
-      })
-    }
-  }
-
-  handleDecrementDuration(){
-    clearInterval(this.state.driver_interval)
-    if(this.state.quote_duration !== 10){
-      let new_duration = this.state.quote_duration - 5
-      let driver_interval = setInterval(this.randomnessDriver.bind(this), new_duration * 1000)
-      this.setState({
-        driver_interval: driver_interval,
-        quote_duration: new_duration
-      }, () => {
-        console.log("Duration decremented to : " + this.state.quote_duration)
-      })
-    }
-  }
-
-  randomnessDriver(){
-    this.getRandomQuote()
-    this.generateRandomHexColor()
-  }
-
-  componentDidMount(){
-    let driver_interval = setInterval(this.randomnessDriver.bind(this), this.state.quote_duration * 1000)
-    this.setState({
-      driver_interval: driver_interval,
-    })
+    this.refreshBackgroundColor()
   }
 
   componentWillUnmount(){
-    clearInterval(this.state.driver_interval)
   }
 
   componentWillMount(){
@@ -161,7 +106,6 @@ class App extends Component {
 
     return (
       <div className="App" style={container_style}>
-
         <div className="App-header">
           <h2 className="animated fadeIn">Quotebook</h2>
         </div>
@@ -175,13 +119,7 @@ class App extends Component {
             <BackIcon onClickFunction={this.handleBackButton.bind(this)} className="inline-control history-control" />
             <NextIcon onClickFunction={this.handleNextButton.bind(this)} className="inline-control history-control" />
           </div>
-          <div className="duration-control-container">
-            <MinusIcon onClickFunction={this.handleDecrementDuration.bind(this)} className="inline-control" />
-            <p className="duration-text inline-control">{this.state.quote_duration} sec</p>
-            <PlusIcon onClickFunction={this.handleIncrementDuration.bind(this)} className="inline-control" />
-          </div>
         </div>
-
     </div>
     );
   }
