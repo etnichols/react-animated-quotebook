@@ -1,5 +1,7 @@
 An animated quotebook with React.
 
+Tutorial will be available soon.
+
 To run, clone this project to your desktop:
 
 ```
@@ -11,5 +13,7 @@ npm start
 
 The app should be live at localhost:3000.
 
+Want to add your own quotes? Edit the ```quotes.js``` file.
+
 --
-This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app). You can find the most recent version of this guide  [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
+This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app). You can find the most recent version of their guide [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).

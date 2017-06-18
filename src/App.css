@@ -20,28 +20,11 @@ body {
   text-align: center;
   padding: 20px;
   margin: auto;
-  display:block;
-}
-
-.icon-control {
-  padding: 0px 10px 0px 10px;
-}
-
-.duration-text {
-  font-family: 'Open Sans', sans-serif;
-  font-size: 18px;
-  color: white;
-  padding: 0px 20px 0px 20px;
-  margin: -20px 0px 0px 0px;
-  vertical-align: text-top;
+  display: block;
 }
 
 .inline-control {
   display: inline-block;
-}
-
-.history-control-container {
-  padding: 10px 0px 20px 0px;
 }
 
 .cross-fade-leave {

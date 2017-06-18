@@ -97,12 +97,10 @@ class App extends Component {
         </ReactCSSTransitionReplace>
 
         <div className="controls-section">
-          <div className="history-control-container">
-            <BackIcon onClickFunction={this.handleBackButton.bind(this)} className="inline-control history-control" />
-            <NextIcon onClickFunction={this.handleNextButton.bind(this)} className="inline-control history-control" />
-          </div>
+          <BackIcon onClickFunction={this.handleBackButton.bind(this)} className="inline-control history-control" />
+          <NextIcon onClickFunction={this.handleNextButton.bind(this)} className="inline-control history-control" />
         </div>
-    </div>
+      </div>
     );
   }
 }
