@@ -1,6 +1,6 @@
 An animated quotebook with React.
 
-Check out a demo here: [randomquotebook.surge.sh](randomquotebook.surge.sh).
+Check out a demo here: [randomquotebook.surge.sh](https://randomquotebook.surge.sh).
 
 Tutorial will be available soon.
 
