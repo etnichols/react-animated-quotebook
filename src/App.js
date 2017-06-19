@@ -8,6 +8,7 @@ import QuoteModal from './components/QuoteModal'
 
 import './App.css'
 import quotes from './quotes'
+import colors from './colors'
 
 class App extends Component {
 
@@ -18,10 +19,13 @@ class App extends Component {
     const shuffled = List(this.shuffleQuotes(quotes))
     const init = shuffled.get(0)
 
+    const bgcolors = List(colors)
+
     this.state = {
       quote: init.quote,
       author: init.author,
       available_quotes: shuffled,
+      colors: bgcolors,
       index: 0
     }
   }
@@ -29,6 +33,7 @@ class App extends Component {
   // https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
   shuffleQuotes(arr){
     let curIndex = arr.length, tempVal, randIndex
+
     while(0 !== curIndex){
       //pick remaining element
       randIndex = Math.floor(Math.random() * curIndex)
@@ -39,22 +44,13 @@ class App extends Component {
       arr[curIndex] = arr[randIndex]
       arr[randIndex] = tempVal
     }
+
     return arr
   }
 
-  // https://stackoverflow.com/questions/1349404/generate-random-string-characters-in-javascript
-  generateRandomHexColor(){
-    let hex_val = []
-    const possible = "0123456789ABCDEFG"
-
-    for(let i = 0; i < 6; i++){
-      hex_val.push(possible.charAt(Math.floor(Math.random() * possible.length)))
-    }
-
-    hex_val.unshift('#')
-    let color = hex_val.join('')
-
-    return color
+  getRandomColor(){
+    let ind = Math.floor(Math.random() * this.state.colors.size)
+    return this.state.colors.get(ind)
   }
 
   performUpdate(){
@@ -80,7 +76,8 @@ class App extends Component {
   }
 
   render() {
-    const bgcolor = this.generateRandomHexColor()
+
+    const bgcolor = this.getRandomColor()
     const container_style  = {
       backgroundColor: bgcolor,
       transition: 'background-color 1s ease'

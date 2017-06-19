@@ -1,4 +1,3 @@
-import { CSSTransitionGroup } from 'react-transition-group'
 import React, { Component } from 'react';
 import './styles.css'
 
