@@ -290,7 +290,7 @@ module.exports = [
     author:"Ralph Marston"
   },
   {
-    quote:"If a man has no sauve then he is lost. But the same man can be lost in the sauce.",
+    quote:"If a man has no sauce then he is lost. But the same man can be lost in the sauce.",
     author:"Jack Martin"
   },
   {
@@ -334,7 +334,7 @@ module.exports = [
     author:"Dr. John G. Hibben"
   },
   {
-    quote:"The art of programming i the art of organizing complexity, of mastering multitude and avoiding its bastard chaos as effectively as possible.",
+    quote:"The art of programming is the art of organizing complexity, of mastering multitude and avoiding its bastard chaos as effectively as possible.",
     author:"Edsger Dijkstra"
   },
   {
