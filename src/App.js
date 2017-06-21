@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import ReactCSSTransitionReplace from 'react-css-transition-replace'
+//import ReactCSSTransitionReplace from 'react-css-transition-replace'
 import { List } from 'immutable'
 
 import QuoteModal from './components/QuoteModal'
@@ -16,7 +16,7 @@ class App extends Component {
     super(props)
 
     //randomize order of quotes at start of session
-    const shuffled = List(this.shuffleQuotes(quotes))
+    const shuffled = List(quotes)
     const init = shuffled.get(0)
 
     const bgcolors = List(colors)
@@ -62,41 +62,59 @@ class App extends Component {
   }
 
   handleBackButton(){
-    this.setState({
-      index: this.state.index - 1
-    }, this.performUpdate)
+    //guard against users who are start scrolling backwards immediately and miraculously make it all the way through
+    if(this.state.index === -(this.state.available_quotes.size - 1)){
+        this.setState({
+          index: 0
+        }, this.performUpdate)
+    } else {
+        this.setState({
+          index: this.state.index - 1
+        }, this.performUpdate)
+    }
   }
 
   handleNextButton(){
-    this.setState({
-      index: this.state.index + 1
-    }, this.performUpdate)
+    //guard against reaching end of quotes array and having to "wrap back around"
+    if(this.state.index === (this.state.available_quotes.size - 1)){
+        this.setState({
+          index: 0
+        }, this.performUpdate)
+    } else {
+        this.setState({
+          index: this.state.index + 1
+        }, this.performUpdate)
+    }
   }
 
   render() {
 
-    const bgcolor = this.getRandomColor()
-    const container_style  = {
-      backgroundColor: bgcolor,
-      transition: 'background-color 1s ease'
-    }
-
     return (
-      <div className="App" style={container_style}>
+      <div className="App" style={{}}>
         <div className="App-header">
           <h2 className="animated fadeIn">Quotebook</h2>
         </div>
 
-        <ReactCSSTransitionReplace transitionName="cross-fade" transitionEnterTimeout={1500} transitionLeaveTimeout={1500} >
-          <QuoteModal key={this.state.quote} quote={this.state.quote} author={this.state.author} />
-        </ReactCSSTransitionReplace>
+          <QuoteModal key={1} quote={this.state.quote} author={this.state.author} />
 
         <div className="control-section">
           <div className="control-container">
-            <Control width={"40"} height={"40"} icon={"arrow-back"} onClickFunction={this.handleBackButton.bind(this)} className="inline-control" />
+            <Control
+              className="inline-control"
+              width={"40"}
+              height={"40"}
+              icon={"arrow-back"}
+              onClickFunction={this.handleBackButton.bind(this)}
+              />
           </div>
           <div className="control-container">
-            <Control width={"40"} height={"40"} icon={"arrow-forward"} onClickFunction={this.handleNextButton.bind(this)} className="inline-control" />
+            <Control
+              className="inline-control"
+              width={"40"}
+              height={"40"}
+              icon={"arrow-forward"}
+              onClickFunction={this.handleNextButton.bind(this)}
+              />
           </div>
         </div>
       </div>

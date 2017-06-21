@@ -1,5 +1,6 @@
 body {
   height: 100%;
+  background-color: #124563;
 }
 
 .App {
@@ -13,7 +14,7 @@ body {
   font-family: 'Arvo', serif;
   height: 100px;
   padding: 20px;
-  color: white;
+  color: #fff;
 }
 
 .control-section {
@@ -33,26 +34,4 @@ body {
 
 .control-container:active {
   background-color: #FFF;
-}
-
-.cross-fade-leave {
-  opacity: 1;
-}
-
-.cross-fade-leave.cross-fade-leave-active {
-  opacity: 0;
-  transition: opacity 1s ease-in;
-}
-
-.cross-fade-enter {
-  opacity: 0;
-}
-
-.cross-fade-enter.cross-fade-enter-active {
-  opacity: 1;
-  transition: opacity 1s ease-in;
-}
-
-.cross-fade-height {
-  transition: height 1s ease-in-out;
 }
