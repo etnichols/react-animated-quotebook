@@ -16,7 +16,8 @@ class App extends Component {
     super(props)
 
     //randomize order of quotes at start of session
-    const shuffled = List(this.shuffleQuotes(quotes))
+    //const shuffled = List(this.shuffleQuotes(quotes))
+    const shuffled = List(quotes)
     const init = shuffled.get(0)
 
     const bgcolors = List(colors)
@@ -62,15 +63,30 @@ class App extends Component {
   }
 
   handleBackButton(){
-    this.setState({
-      index: this.state.index - 1
-    }, this.performUpdate)
+    // guard against users who start scrolling backwards immediately
+    // and miraculously make it all the way through to the end of the array
+    if(this.state.index === -(this.state.available_quotes.size - 1)){
+        this.setState({
+          index: 0
+        }, this.performUpdate)
+    } else {
+        this.setState({
+          index: this.state.index - 1
+        }, this.performUpdate)
+    }
   }
 
   handleNextButton(){
-    this.setState({
-      index: this.state.index + 1
-    }, this.performUpdate)
+    // guard against reaching end of quotes array and having to "wrap back around"
+    if(this.state.index === (this.state.available_quotes.size - 1)){
+        this.setState({
+          index: 0
+        }, this.performUpdate)
+    } else {
+        this.setState({
+          index: this.state.index + 1
+        }, this.performUpdate)
+    }
   }
 
   render() {

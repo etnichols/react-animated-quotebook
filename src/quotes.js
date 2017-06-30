@@ -2,6 +2,10 @@ const UNKNOWN = "Unknown"
 
 module.exports = [
   {
+    quote: "To be a great champion you must believe you are the best. If you're not, pretend you are.",
+    author: "Muhammed Ali"
+  },
+  {
     quote: "A degree is like magic. You still do your job, but when you have a degree, people believe you know what you're talking about.",
     author: "Virginia Johnson, Masters of Sex"
   },
