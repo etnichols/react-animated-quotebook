@@ -16,10 +16,8 @@ class App extends Component {
     super(props)
 
     //randomize order of quotes at start of session
-    //const shuffled = List(this.shuffleQuotes(quotes))
-    const shuffled = List(quotes)
+    const shuffled = List(this.shuffleQuotes(quotes))
     const init = shuffled.get(0)
-
     const bgcolors = List(colors)
 
     this.state = {
