@@ -2,6 +2,18 @@ const UNKNOWN = "Unknown"
 
 module.exports = [
   {
+    quote: "Everything you want is out there waiting for you to ask. Everything you want also wants you. But you have to take action to get it.",
+    author: "Jules Renard"
+  },
+  {
+    quote: "There are only two types of speakers in the world. 1. The nervous and 2. Liars.",
+    author: "Mark Twain"
+  },
+  {
+    quote: "If you aren't in over your head, how do you have how tall you are?",
+    author: "T.S. Eliot"
+  },
+  {
     quote: "The central task of education is to implant a will and a facility for learning; it should produce not learned but learning people. The truly human society is a learning society, where grandparents, parents, and children are students together. In a time of drastic change it is the learners who inherit the future. The learned usually find themselves equipped to live in a world that no longer exists.",
     author: "Eric Hoffer"
   },
