@@ -7,7 +7,7 @@ Check out the tutorial for the project [here](http://etnichols.com/react-quotebo
 To run the project locally:
 
 ```
-git clone https://github.com/e-nichols/quotebook.git
+git clone https://github.com/e-nichols/react-animated-quotebook.git
 cd quotebook
 npm i
 npm start
