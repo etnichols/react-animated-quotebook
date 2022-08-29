@@ -2,7 +2,7 @@
 
 Check out a demo [here](https://randomquotebook.surge.sh).
 
-Check out the tutorial for the project [here](http://etnichols.com/react-quotebook-tutorial/).
+Check out the tutorial for the project [here](https://etnichols.com/programming/react-quotebook-tutorial).
 
 To run the project locally:
 
